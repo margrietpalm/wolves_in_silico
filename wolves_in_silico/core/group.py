@@ -1,27 +1,27 @@
 import random
 
-from player import Player, Role
+from .player import Player, Role
 
 class Group:
-    def __init__(self, population):
+    def __init__(self, population: list[Player]):
         self.population = population
 
     @property
-    def size(self):
+    def size(self) -> int:
         return len(self.population)
 
     @property
-    def vote_size(self):
+    def vote_size(self) -> float:
         return self.size+.5*self.has_major
 
-    def remove(self, target):
+    def remove(self, target: Player):
         self.population.remove(target)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"population: {', '.join(str(member) for member in self.population)}"
 
     @property
-    def has_major(self):
+    def has_major(self) -> bool:
         return any([member.is_major for member in self.population])
 
 class Village(Group):

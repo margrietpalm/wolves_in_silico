@@ -1,11 +1,25 @@
 from enum import Enum
 import random
 
-from group import Village
+import numpy as np
+
+from .group import Village
+from .player import Role
+
 
 class Phase(Enum):
     DAY = 1
     NIGHT = 2
+
+
+class Result:
+    def __init__(self, game):
+        self.nciv = [game.nciv[0]] + game.nciv
+        self.nwolves = [game.nwolves[0]] + game.nwolves
+        self.time = np.arange(0, len(self.nciv) / 2, .5)
+        self.civ_win = game.winner == Role.CIV
+        self.wolf_win = not self.civ_win
+
 
 class Game:
 
@@ -19,7 +33,7 @@ class Game:
         self.nciv = []
         self.nwolves = []
 
-    def play(self):
+    def play(self) -> Result:
         while not self.finished:
             if self.phase == Phase.NIGHT:
                 self.play_night()
@@ -27,12 +41,12 @@ class Game:
                 self.play_day()
             self.nciv.append(self.village.civilians.size)
             self.nwolves.append(self.village.wolves.size)
-
+        return Result(self)
 
     def choose_major(self, p_wolf=.5):
         for member in self.village.population:
             member.is_major = False
-        weights = self.village.nwolves*[p_wolf] + self.village.nciv*[1-p_wolf]
+        weights = self.village.nwolves * [p_wolf] + self.village.nciv * [1 - p_wolf]
         major = random.choices(self.village.population, weights=weights, k=1)[0]
         major.is_major = True
 
@@ -58,6 +72,3 @@ class Game:
             self.finished = True
             self.winner = Role.WOLF
         self.phase = Phase.NIGHT
-
-
-
