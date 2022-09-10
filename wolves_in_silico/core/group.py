@@ -1,3 +1,4 @@
+import copy
 import random
 
 from .player import Player, Role
@@ -5,7 +6,7 @@ from .player import Player, Role
 
 class Group:
     def __init__(self, population: list[Player]):
-        self.population = population
+        self.population = copy.copy(population)
 
     @property
     def size(self) -> int:
@@ -67,8 +68,8 @@ class Wolves(Group):
         Group.__init__(self, [Player(Role.WOLF, i + 1) for i in range(n)])
         self.p_kill = p_kill
 
-    def turn(self):
-        random.random > self.p_kill
+    def turn(self) -> bool:
+        return random.random() > self.p_kill
 
-    def get_night_kill(self, civilians):
-        return random.choice(civilians)
+    def get_night_kill(self, civilians) -> Player:
+        return random.choice(civilians.population)
