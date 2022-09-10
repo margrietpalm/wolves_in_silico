@@ -15,8 +15,8 @@ def plot_game_results(results: list[Result], outdir: Path = Path('./')):
     with plt.xkcd():
         fig, axes = plt.subplots(1, 3, figsize=(12, 4))
 
-    axes[0].set(xlabel='day', ylabel='number of players', title='civilians', yticks=range(0,nciv+1))
-    axes[1].set(xlabel='day', ylabel='number of players', title='wolves', yticks=range(0,nwolf+1))
+    axes[0].set(xlabel='day', ylabel='number of players', title='civilians', yticks=range(0, nciv + 1))
+    axes[1].set(xlabel='day', ylabel='number of players', title='wolves', yticks=range(0, nwolf + 1))
     for result in results:
         axes[0].plot(result.time, result.nciv)
         axes[1].plot(result.time, result.nwolves)

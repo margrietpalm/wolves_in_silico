@@ -5,3 +5,14 @@ dependencies = [
     "numpy",
     "matplotlib",
 ]
+
+[tool.flakeheaven]
+exclude = ["venv", "wolves_in_silico.egg-info"]
+format = "grouped"
+max_line_length = 120
+
+[tool.flakeheaven.plugins]
+flake8-class-attributes-order = ["+*"]
+flake8-comprehensions = ["+*"]
+flake8-print = ["+*"]
+pep8-naming = ["+*"]

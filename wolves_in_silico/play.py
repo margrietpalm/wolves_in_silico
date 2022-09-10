@@ -1,15 +1,14 @@
 import argparse
-import os
 import sys
-from pathlib import Path
 
 if __name__ == "__main__":
     from os.path import dirname as dir
-    sys.path.append(dir(sys.path[0]))
 
+    sys.path.append(dir(sys.path[0]))
 
 from core.game import Game
 from vis.plot import plot_game_results
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -17,6 +16,7 @@ def parse_args():
     parser.add_argument('wolves', type=int, help='number of wolves')
     parser.add_argument('-r', '--runs', type=int, help='number of runs', default=1)
     return parser.parse_args()
+
 
 def main():
     args = parse_args()
