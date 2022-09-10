@@ -14,8 +14,8 @@ class Phase(Enum):
 
 class Result:
     def __init__(self, game):
-        self.nciv = [game.nciv[0]] + game.nciv
-        self.nwolves = [game.nwolves[0]] + game.nwolves
+        self.nciv = game.nciv
+        self.nwolves = game.nwolves
         self.time = np.arange(0, len(self.nciv) / 2, .5)
         self.civ_win = game.winner == Role.CIV
         self.wolf_win = not self.civ_win
@@ -30,8 +30,8 @@ class Game:
         # day 0 = elections
         self.choose_major()
         self.phase = Phase.NIGHT
-        self.nciv = []
-        self.nwolves = []
+        self.nciv = [nciv]
+        self.nwolves = [nwolf]
 
     def play(self) -> Result:
         while not self.finished:

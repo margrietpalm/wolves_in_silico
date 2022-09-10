@@ -3,6 +3,7 @@ import pytest
 from wolves_in_silico.core.group import Group, Village, Wolves, Civilians
 from wolves_in_silico.core.player import Player, Role
 
+
 class TestGroup:
     @pytest.mark.parametrize('has_major', [True, False])
     def test_init(self, has_major: bool):
@@ -13,14 +14,14 @@ class TestGroup:
         group = Group(population=players)
         assert group.size == n
         assert group.has_major == has_major
-        assert group.vote_size == n + .5*has_major
+        assert group.vote_size == n + .5 * has_major
 
     def test_remove(self):
         n = 3
         players = [Player(role=Role.CIV, id=i) for i in range(n)]
         group = Group(population=players)
         group.remove(players[0])
-        assert group.size == n-1
+        assert group.size == n - 1
         assert not players[0] in group.population
 
 
@@ -63,13 +64,8 @@ class TestWolves:
     def test_kill(self):
         wolves = Wolves(n=1, p_kill=1)
         civs = Civilians(n=1)
-        assert wolves.get_night_kill(civs) == civs.population[0]
+        assert wolves.get_night_kill(civs.population) == civs.population[0]
 
     def test_turn(self):
         wolves = Wolves(n=1, p_kill=0)
         assert wolves.turn()
-
-
-
-
-

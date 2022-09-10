@@ -72,4 +72,4 @@ class Wolves(Group):
         return random.random() > self.p_kill
 
     def get_night_kill(self, civilians) -> Player:
-        return random.choice(civilians.population)
+        return random.choice(civilians)
