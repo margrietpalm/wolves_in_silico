@@ -1,17 +1,5 @@
-import pytest
-
-from wolves_in_silico.core.game import Game, Result, Phase
-from wolves_in_silico.core.player import Role
-
-
-def test_result():
-    game = Game(nciv=2, nwolf=2)
-    result = game.play()
-    assert result.nciv == game.nciv
-    assert result.nwolves == game.nwolves
-    assert len(result.time) == len(game.nciv)
-    assert result.civ_win == (game.winner == Role.CIV)
-    assert result.civ_win is not result.wolf_win
+from wolves_in_silico.abm.game import Game
+from wolves_in_silico.base.game import Result, Phase, Role
 
 
 class TestGame:

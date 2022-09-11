@@ -1,20 +1,17 @@
 import copy
 import random
+from .player import Player
+from ..base.game import Role
+from wolves_in_silico.base.game import Role
+import wolves_in_silico.base.group as group_base
 
-from .player import Player, Role
-
-
-class Group:
+class Group(group_base.Group):
     def __init__(self, population: list[Player]):
         self.population = copy.copy(population)
 
     @property
     def size(self) -> int:
         return len(self.population)
-
-    @property
-    def vote_size(self) -> float:
-        return self.size + .5 * self.has_major
 
     @property
     def has_major(self) -> bool:
@@ -28,19 +25,11 @@ class Group:
 
 
 
-class Village(Group):
+class Village(group_base.Village):
     def __init__(self, nciv, nwolf):
         self.wolves = Wolves(nwolf)
         self.civilians = Civilians(nciv)
         Group.__init__(self, self.wolves.population + self.civilians.population)
-
-    @property
-    def nwolves(self):
-        return self.wolves.size
-
-    @property
-    def nciv(self):
-        return self.civilians.size
 
     def remove(self, member):
         if member.is_wolf:

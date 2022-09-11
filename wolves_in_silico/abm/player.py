@@ -1,9 +1,4 @@
-from enum import Enum
-
-
-class Role(Enum):
-    WOLF = 1
-    CIV = 2
+from wolves_in_silico.base.game import Role
 
 
 class Player:

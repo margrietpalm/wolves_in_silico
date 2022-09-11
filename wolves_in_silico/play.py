@@ -6,7 +6,7 @@ if __name__ == "__main__":
 
     sys.path.append(dir(sys.path[0]))
 
-from core.game import Game
+from abm.game import Game
 from vis.plot import plot_game_results
 
 
