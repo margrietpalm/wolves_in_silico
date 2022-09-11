@@ -12,12 +12,12 @@ class Game(GameBase):
         self.village = Village(nciv=nciv, nwolf=nwolf)
         GameBase.__init__(self, nciv=nciv, nwolf=nwolf)
 
-    def choose_major(self, p_wolf=.5):
+    def choose_mayor(self, p_wolf=.5):
         for member in self.village.population:
-            member.is_major = False
+            member.is_mayor = False
         weights = self.village.nwolves * [p_wolf] + self.village.nciv * [1 - p_wolf]
-        major = random.choices(self.village.population, weights=weights, k=1)[0]
-        major.is_major = True
+        mayor = random.choices(self.village.population, weights=weights, k=1)[0]
+        mayor.is_mayor = True
 
     def play_night(self):
         target = self.village.wolves.get_night_kill(self.village.civilians.population)

@@ -6,16 +6,16 @@ from wolves_in_silico.base.game import Role
 
 
 class TestGroup:
-    @pytest.mark.parametrize('has_major', [True, False])
-    def test_init(self, has_major: bool):
+    @pytest.mark.parametrize('has_mayor', [True, False])
+    def test_init(self, has_mayor: bool):
         n = 3
         players = [Player(role=Role.CIV, id=i) for i in range(n)]
-        if has_major:
-            players[0].is_major = True
+        if has_mayor:
+            players[0].is_mayor = True
         group = Group(population=players)
         assert group.size == n
-        assert group.has_major == has_major
-        assert group.vote_size == n + .5 * has_major
+        assert group.has_mayor == has_mayor
+        assert group.vote_size == n + .5 * has_mayor
 
     def test_remove(self):
         n = 3

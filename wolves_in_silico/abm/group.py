@@ -14,8 +14,8 @@ class Group(group_base.Group):
         return len(self.population)
 
     @property
-    def has_major(self) -> bool:
-        return any([member.is_major for member in self.population])
+    def has_mayor(self) -> bool:
+        return any([member.is_mayor for member in self.population])
 
     def remove(self, target: Player):
         self.population.remove(target)

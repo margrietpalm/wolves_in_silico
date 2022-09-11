@@ -3,11 +3,12 @@ from abc import ABC, abstractmethod
 
 class Group(ABC):
     size: int = 0
-    has_major: bool = False
+    has_mayor: bool = False
+    mayor_extra_vote: float = .5
 
     @property
     def vote_size(self) -> float:
-        return self.size + .5 * self.has_major
+        return self.size + self.mayor_extra_vote * self.has_mayor
 
     @abstractmethod
     def remove(self):
@@ -17,6 +18,11 @@ class Group(ABC):
 class Village(Group):
     wolves: Group
     civilians: Group
+
+    def change_mayor_vote(self, mayor_extra_vote):
+        self.mayor_extra_vote = mayor_extra_vote
+        self.civilians.mayor_extra_vote = mayor_extra_vote
+        self.wolves.mayor_extra_vote = mayor_extra_vote
 
     @property
     def nwolves(self) -> int:
@@ -31,5 +37,5 @@ class Village(Group):
         return self.nwolves + self.nciv
 
     @property
-    def has_major(self) -> bool:
-        return self.wolves.has_major or self.civilians.has_major
+    def has_mayor(self) -> bool:
+        return self.wolves.has_mayor or self.civilians.has_mayor

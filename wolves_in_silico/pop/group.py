@@ -4,9 +4,9 @@ import wolves_in_silico.base.group as group_base
 
 
 class Group(group_base.Group):
-    def __init__(self, size: int, has_major: bool = False):
+    def __init__(self, size: int, has_mayor: bool = False):
         self.size = size
-        self.has_major = has_major
+        self.has_mayor = has_mayor
 
     def remove(self):
         if self.size <= 0:
@@ -32,8 +32,8 @@ class Village(group_base.Village):
 
     def remove(self, wolf=False):
         pop = self.wolves if wolf else self.civilians
-        if pop.has_major:
-            pop.has_major = random.random() < (1 / pop.size)
+        if pop.has_mayor:
+            pop.has_mayor = random.random() < (1 / pop.size)
         pop.remove()
 
     def __repr__(self):

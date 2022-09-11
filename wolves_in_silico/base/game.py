@@ -33,13 +33,13 @@ class Game(ABC):
     winner: Optional[Role] = None
 
     def __init__(self, nciv, nwolf):
-        self.choose_major()
+        self.choose_mayor()
         self.phase = Phase.NIGHT
         self.nciv = [nciv]
         self.nwolves = [nwolf]
 
     @abstractmethod
-    def choose_major(self):
+    def choose_mayor(self):
         pass
 
     def play(self) -> Result:
@@ -53,8 +53,8 @@ class Game(ABC):
         return Result(nciv=self.nciv, nwolves=self.nwolves, civ_win=self.winner == Role.CIV)
 
     def finish_phase(self):
-        if not self.village.has_major:
-            self.choose_major()
+        if not self.village.has_mayor:
+            self.choose_mayor()
         if self.village.wolves.size == 0:
             self.finished = True
             self.winner = Role.CIV

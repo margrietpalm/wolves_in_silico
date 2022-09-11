@@ -10,12 +10,12 @@ def test_wolf():
     assert str(wolf) == 'wolf_00'
 
 
-@pytest.mark.parametrize('major', (True, False))
-def test_civ(major):
+@pytest.mark.parametrize('mayor', (True, False))
+def test_civ(mayor):
     civ = Player(role=Role.CIV, id=0)
-    civ.is_major = major
+    civ.is_mayor = mayor
     assert not civ.is_wolf
-    if major:
+    if mayor:
         assert str(civ) == 'civ_00*'
     else:
         assert str(civ) == 'civ_00'

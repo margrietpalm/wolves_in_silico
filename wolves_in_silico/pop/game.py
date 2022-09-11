@@ -12,13 +12,13 @@ class Game(GameBase):
         self.village = Village(nciv=nciv, nwolf=nwolf)
         GameBase.__init__(self, nciv=nciv, nwolf=nwolf)
 
-    def choose_major(self):
-        self.village.wolves.has_major = False
-        self.village.civilians.has_major = False
+    def choose_mayor(self):
+        self.village.wolves.has_mayor = False
+        self.village.civilians.has_mayor = False
         if random.random() < (self.village.nwolves / self.village.size):
-            self.village.wolves.has_major = True
+            self.village.wolves.has_mayor = True
         else:
-            self.village.civilians.has_major = True
+            self.village.civilians.has_mayor = True
 
     def play_night(self):
         self.village.remove(wolf=False)
