@@ -24,4 +24,5 @@ class Game(GameBase):
 
     def play_day(self):
         wolf_kill = random.random() < (self.village.nwolves / self.village.size)
+        self.village.remove(wolf=wolf_kill)
         self.finish_phase()
