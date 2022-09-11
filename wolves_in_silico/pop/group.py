@@ -37,6 +37,6 @@ class Village(group_base.Village):
         pop.remove()
 
     def __repr__(self):
-        return f'wolves: {self.nwolves}\ncivilians: {self.nciv}'
+        return f'population of {self.size} with {self.nwolves} wolfes and {self.nciv} civilians'
 
 
