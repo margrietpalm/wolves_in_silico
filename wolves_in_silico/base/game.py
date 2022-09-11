@@ -28,6 +28,7 @@ class Result:
 
 class Game(ABC):
     village: Village
+    name: str
     finished: bool = False
     winner: Optional[Role] = None
 

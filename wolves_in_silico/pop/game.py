@@ -6,6 +6,8 @@ from wolves_in_silico.base.game import Game as GameBase
 
 
 class Game(GameBase):
+    name = 'pop'
+    
     def __init__(self, nciv, nwolf):
         self.village = Village(nciv=nciv, nwolf=nwolf)
         GameBase.__init__(self, nciv=nciv, nwolf=nwolf)
