@@ -26,8 +26,9 @@ class TestGame:
         assert game.village.has_major
         assert game.phase == Phase.DAY
 
-    def test_play_dau(self):
+    def test_play_day(self):
         game = Game(nciv=2, nwolf=2)
+        game.phase = Phase.DAY
         game.play_day()
         assert game.village.size == 3
         assert game.phase == Phase.NIGHT
