@@ -5,8 +5,24 @@ import wolves_in_silico.base.group as group_base
 
 class Group(group_base.Group):
     def __init__(self, size: int, has_mayor: bool = False):
-        self.size = size
-        self.has_mayor = has_mayor
+        self._size = size
+        self._has_mayor = has_mayor
+
+    @property
+    def has_mayor(self) -> bool:
+        return self._has_mayor
+
+    @has_mayor.setter
+    def has_mayor(self, has_mayor: bool):
+        self._has_mayor = has_mayor
+
+    @property
+    def size(self) -> int:
+        return self._size
+
+    @size.setter
+    def size(self, size: int):
+        self._size = size
 
     def remove(self):
         if self.size <= 0:
@@ -18,7 +34,7 @@ class Group(group_base.Group):
 
 
 class Village(group_base.Village):
-    def __init__(self, nciv, nwolf):
+    def __init__(self, nciv: int, nwolf: int):
         self.wolves = Group(size=nwolf)
         self.civilians = Group(size=nciv)
 
@@ -36,7 +52,7 @@ class Village(group_base.Village):
             pop.has_mayor = random.random() < (1 / pop.size)
         pop.remove()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'population of {self.size} with {self.nwolves} wolfes and {self.nciv} civilians'
 
 

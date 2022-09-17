@@ -21,9 +21,9 @@ class Result:
     def __init__(self, nciv: list[int], nwolves: list[int], civ_win: bool):
         self.nciv = nciv
         self.nwolves = nwolves
-        self.time = np.arange(0, len(self.nciv) / 2, .5)
+        self.time: np.ndarray = np.arange(0, len(self.nciv) / 2, .5)
         self.civ_win = civ_win
-        self.wolf_win = not self.civ_win
+        self.wolf_win: bool = not self.civ_win
 
 
 class Game(ABC):
@@ -32,11 +32,11 @@ class Game(ABC):
     finished: bool = False
     winner: Optional[Role] = None
 
-    def __init__(self, nciv, nwolf):
+    def __init__(self, nciv: int, nwolf: int):
         self.choose_mayor()
-        self.phase = Phase.NIGHT
-        self.nciv = [nciv]
-        self.nwolves = [nwolf]
+        self.phase: Phase = Phase.NIGHT
+        self.nciv: list[int] = [nciv]
+        self.nwolves: list[int] = [nwolf]
 
     @abstractmethod
     def choose_mayor(self):

@@ -65,7 +65,7 @@ class TestWolves:
     def test_kill(self):
         wolves = Wolves(n=1, p_kill=1)
         civs = Civilians(n=1)
-        assert wolves.get_night_kill(civs.population) == civs.population[0]
+        assert wolves.get_night_kill(civs) == civs.population[0]
 
     def test_turn(self):
         wolves = Wolves(n=1, p_kill=0)

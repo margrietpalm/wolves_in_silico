@@ -6,8 +6,8 @@ if __name__ == "__main__":
 
     sys.path.append(dir(sys.path[0]))
 
-from abm.game import Game
-from vis.plot import plot_game_results
+from wolves_in_silico.abm.game import Game
+from wolves_in_silico.vis.plot import plot_game_results
 
 
 def parse_args():

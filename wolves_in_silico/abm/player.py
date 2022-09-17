@@ -3,15 +3,15 @@ from wolves_in_silico.base.game import Role
 
 class Player:
 
-    def __init__(self, role, id):
+    def __init__(self, role: Role, id: int):
         self.role = role
         self.id = id
-        self.is_mayor = False
+        self.is_mayor: bool = False
 
     @property
-    def is_wolf(self):
+    def is_wolf(self) -> bool:
         return self.role == Role.WOLF
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         bm_suffix = '*' if self.is_mayor else ''
         return f'{self.role.name.lower()}_{self.id:02d}{bm_suffix}'
