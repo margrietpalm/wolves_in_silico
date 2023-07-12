@@ -2,6 +2,6 @@ Currently dorment project to simulate the game [Werewolves](https://en.wikipedia
 
 ## Todo
 
-* Fix `pyproject.toml1
+* Fix `pyproject.toml`
 * Review models.
 
