@@ -32,5 +32,9 @@ The population based model cannot be used for any special role. Moreover, it is 
 
 In the agent based model each player is represented. TODO: finish this.
 
+## TODO
 
-
+* Add pipelines to run tests and flake on push
+* Add mypy
+* Improve ABM implementation
+* Visualization
