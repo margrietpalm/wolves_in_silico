@@ -5,6 +5,8 @@ dependencies = [
     "numpy",
     "matplotlib",
 ]
+requires-python = ">3.10"
+
 
 [build-system]
 requires = ["setuptools", "setuptools_scm"]
@@ -16,3 +18,34 @@ include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.flakeheaven]
+exclude = ["venv", "wolves_in_silico.egg-info", "build/*", ".git/*", ".tox"]
+format = "grouped"
+max_line_length = 120
+
+[tool.flakeheaven.plugins]
+flake8-class-attributes-order = ["+*"]
+flake8-comprehensions = ["+*"]
+flake8-print = ["+*"]
+pep8-naming = ["+*"]
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+isolated_build = True
+envlist = py310
+
+[testenv]
+deps =
+    flakeheaven
+    pytest
+    pytest-cov
+commands =
+    flakeheaven lint
+    pytest --disable-warnings --cov-report term
+
+[run]
+omit = .tox/*,venv/*,tests/*,htmlcov*,analyses*
+
+"""
