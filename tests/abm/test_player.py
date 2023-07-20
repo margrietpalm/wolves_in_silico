@@ -1,7 +1,7 @@
 import pytest
 
 from wolves_in_silico.abm.player import Player
-from wolves_in_silico.base.game import Role
+from wolves_in_silico.abm.game import Role
 
 
 def test_wolf():
