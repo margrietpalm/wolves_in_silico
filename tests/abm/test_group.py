@@ -1,8 +1,7 @@
 import pytest
 
 from wolves_in_silico.abm.group import Group, Village, Wolves, Civilians
-from wolves_in_silico.abm.player import Player
-from wolves_in_silico.base.game import Role
+from wolves_in_silico.abm.player import Player, Role
 
 
 class TestGroup:

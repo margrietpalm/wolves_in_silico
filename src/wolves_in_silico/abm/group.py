@@ -1,12 +1,17 @@
 import copy
 import random
-from wolves_in_silico.abm.player import Player
-from wolves_in_silico.base.game import Role
-import wolves_in_silico.base.group as group_base
+from wolves_in_silico.abm.player import Player, Role
 
-class Group(group_base.Group):
+
+class Group:
+    mayor_extra_vote: float = .5
+
     def __init__(self, population: list[Player]):
         self.population: list[Player] = copy.copy(population)
+
+    @property
+    def vote_size(self) -> float:
+        return self.size + self.mayor_extra_vote * self.has_mayor
 
     @property
     def size(self) -> int:
@@ -24,11 +29,35 @@ class Group(group_base.Group):
 
 
 
-class Village(group_base.Village, Group):
+class Village(Group):
+    wolves: Group
+    civilians: Group
+
     def __init__(self, nciv: int, nwolf: int):
         self.wolves: Wolves = Wolves(nwolf)
         self.civilians: Civilians = Civilians(nciv)
         Group.__init__(self, self.wolves.population + self.civilians.population)
+
+    @property
+    def nwolves(self) -> int:
+        return self.wolves.size
+
+    @property
+    def nciv(self) -> int:
+        return self.civilians.size
+
+    @property
+    def size(self):
+        return self.nwolves + self.nciv
+
+    @property
+    def has_mayor(self) -> bool:
+        return self.wolves.has_mayor or self.civilians.has_mayor
+
+    def change_mayor_vote(self, mayor_extra_vote: float):
+        self.mayor_extra_vote = mayor_extra_vote
+        self.civilians.mayor_extra_vote = mayor_extra_vote
+        self.wolves.mayor_extra_vote = mayor_extra_vote
 
     def remove(self, member: Player):
         if member.is_wolf:

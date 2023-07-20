@@ -1,4 +1,4 @@
-Simulate the game [Werewolves](https://en.wikipedia.org/wiki/The_Werewolves_of_Millers_Hollow) using either a population or an agent based model. 
+Simulate the game [Werewolves](https://en.wikipedia.org/wiki/The_Werewolves_of_Millers_Hollow) using an agent based model. 
 
 ## About the game
 
@@ -20,21 +20,14 @@ After group discussions and deliberations the player lynch another player by vot
 
 There are many special roles on both sides which are not considered at the moment.
 
-## Models
+## Model
 
-### Popluation based model
+The simulations use an agent based model because a population based model cannot reflect the knowledge each player has. A population based model was part of this project and can still be found in older commits.
 
-This model considers two populations: civilians and wolves as a number of players. After each night, the number of civilians is reduced by one. After each day a civilian or wolf is removed based on chance. Note that the mayor plays no role in this implementation. 
-
-The population based model cannot be used for any special role. Moreover, it is inaccurate because it does not consider the rule that players cannot vote for themselves. For example, in case of 3 players with 1 wolf and 2 civilians. The population based model would give a 1 in 3 chance of lynching the wolf. However, in reality the wolf will never vote for the wolf and both civilians have a fifty-fifty chance of hitting a wolf. So the chance of lynching a wolf is 1 in 4 instead of 1 in 3.
-
-### Agent based model
-
-In the agent based model each player is represented. TODO: finish this.
+TODO: finish this description
 
 ## TODO
 
-* Add pipelines to run tests and flake on push
 * Add mypy
 * Improve ABM implementation
 * Visualization

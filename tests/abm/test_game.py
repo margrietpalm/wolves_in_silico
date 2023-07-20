@@ -1,5 +1,4 @@
-from wolves_in_silico.abm.game import Game
-from wolves_in_silico.base.game import Result, Phase, Role
+from wolves_in_silico.abm.game import Game, Result, Phase, Role
 
 
 class TestGame:
