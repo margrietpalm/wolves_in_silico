@@ -22,6 +22,12 @@ class GameRecord:
         self.civ_win = civ_win
         self.wolf_win: bool = not self.civ_win
 
+    def __repr__(self):
+        return f'''
+                number of civilians {" ".join(str(n) for n in self.nciv)}\n
+                number of wolves    {" ".join(str(n) for n in self.nciv)}\n
+                winner = {"civilians" if self.civ_win else "wolves"}\n'''
+    
 
 class Game():
     village: Village
