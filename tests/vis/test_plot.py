@@ -13,4 +13,3 @@ def test_plot():
         plot_game_results([result])
     except Exception as e:
         pytest.fail(f"Plotting failed - {e}")
-

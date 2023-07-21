@@ -34,7 +34,7 @@ class Game():
         self.nciv: list[int] = [nciv]
         self.nwolves: list[int] = [nwolf]
 
-    def choose_mayor(self, p_wolf: float=.5):
+    def choose_mayor(self, p_wolf: float = .5):
         for member in self.village.population:
             member.is_mayor = False
         weights = self.village.nwolves * [p_wolf] + self.village.nciv * [1 - p_wolf]
@@ -74,5 +74,3 @@ class Game():
             self.phase = Phase.NIGHT
         else:
             self.phase = Phase.DAY
-
-

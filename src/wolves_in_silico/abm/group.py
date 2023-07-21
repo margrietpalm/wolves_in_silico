@@ -19,14 +19,13 @@ class Group:
 
     @property
     def has_mayor(self) -> bool:
-        return any([member.is_mayor for member in self.population])
+        return any(member.is_mayor for member in self.population)
 
     def remove(self, target: Player):
         self.population.remove(target)
 
     def __repr__(self) -> str:
         return f"population: {', '.join(str(member) for member in self.population)}"
-
 
 
 class Village(Group):
