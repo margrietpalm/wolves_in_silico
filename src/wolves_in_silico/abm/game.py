@@ -34,7 +34,7 @@ class Game():
         self.phase: Phase = Phase.NIGHT
         self.states: list[Village] = [copy.deepcopy(self.village)]
 
-    def choose_mayor(self, p_wolf: float=.5):
+    def choose_mayor(self, p_wolf: float = .5):
         for member in self.village.population:
             member.is_mayor = False
         weights = self.village.nwolves * [p_wolf] + self.village.nciv * [1 - p_wolf]
@@ -49,7 +49,6 @@ class Game():
             else:
                 self.play_day()
             states.append(copy.deepcopy(self.village))
-        #return states
         return GameRecord(states=states, civ_win=self.winner == Role.CIV)
 
     def play_night(self):
@@ -75,5 +74,3 @@ class Game():
             self.phase = Phase.NIGHT
         else:
             self.phase = Phase.DAY
-
-

@@ -19,4 +19,3 @@ def test_civ(mayor):
         assert str(civ) == 'civ_00*'
     else:
         assert str(civ) == 'civ_00'
-

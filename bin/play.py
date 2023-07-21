@@ -3,7 +3,6 @@ import sys
 
 if __name__ == "__main__":
     from os.path import dirname as dir
-
     sys.path.append(dir(sys.path[0]))
 
 from wolves_in_silico.abm.game import Game
