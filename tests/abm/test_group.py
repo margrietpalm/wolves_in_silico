@@ -24,6 +24,16 @@ class TestGroup:
         assert group.size == n - 1
         assert not players[0] in group.population
 
+    def test_eq(self):
+        g1 = Group(population=[Player(Role.WOLF, 1)])
+        g2 = Group(population=[Player(Role.WOLF, 1)])
+        assert g1 == g2
+
+    def test_eq(self):
+        g1 = Group(population=[Player(Role.WOLF, 1)])
+        g2 = Group(population=[Player(Role.WOLF, 2)])
+        assert g1 != g2
+
 
 class TestVillage:
     def test_init(self):
