@@ -2,7 +2,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 
-from wolves_in_silico.base.game import Result
+from wolves_in_silico.abm.game import Result
 
 
 def plot_game_results(results: list[Result], outdir: Path = Path('./')):
