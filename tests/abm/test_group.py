@@ -29,7 +29,7 @@ class TestGroup:
         g2 = Group(population=[Player(Role.WOLF, 1)])
         assert g1 == g2
 
-    def test_eq(self):
+    def test_not_eq(self):
         g1 = Group(population=[Player(Role.WOLF, 1)])
         g2 = Group(population=[Player(Role.WOLF, 2)])
         assert g1 != g2
