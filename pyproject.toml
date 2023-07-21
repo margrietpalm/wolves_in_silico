@@ -19,10 +19,6 @@ include-package-data = true
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[tool.flake8]
-exclude = ["venv", "wolves_in_silico.egg-info", "build/*", ".git/*", ".tox"]
-format = "grouped"
-max_line_length = 120
 
 [tool.flake8.plugins]
 flake8-class-attributes-order = ["+*"]
@@ -30,11 +26,18 @@ flake8-comprehensions = ["+*"]
 flake8-print = ["+*"]
 pep8-naming = ["+*"]
 
+[tool.flake8]
+format = "grouped"
+
 [tool.tox]
 legacy_tox_ini = """
 [tox]
 isolated_build = True
 envlist = py310
+
+[flake8]
+exclude = ["venv", "wolves_in_silico.egg-info", "build/*", ".git/*", ".tox"]
+format = "grouped"
 
 [testenv]
 deps =
@@ -45,7 +48,7 @@ deps =
     pytest
     pytest-cov
 commands =
-    flake8
+    flake8 --max-line-length 120
     pytest --disable-warnings --cov-report term
 
 [run]
