@@ -1,4 +1,5 @@
 from typing import Optional
+import copy
 import random
 import numpy as np
 from enum import Enum
@@ -12,12 +13,12 @@ class Phase(Enum):
     NIGHT = 2
 
 
-class Result:
-    # TODO: remove(?)
-    def __init__(self, nciv: list[int], nwolves: list[int], civ_win: bool):
-        self.nciv = nciv
-        self.nwolves = nwolves
-        self.time: np.ndarray = np.arange(0, len(self.nciv) / 2, .5)
+class GameRecord:
+    def __init__(self, states: list[Village], civ_win: bool):
+        self.states = states
+        self.nciv = [state.nciv for state in states]
+        self.nwolves = [state.nwolves for state in states]
+        self.time: np.ndarray = np.arange(0, len(self.states) / 2, .5)
         self.civ_win = civ_win
         self.wolf_win: bool = not self.civ_win
 
@@ -31,8 +32,7 @@ class Game():
         self.village: Village = Village(nciv=nciv, nwolf=nwolf)
         self.choose_mayor()
         self.phase: Phase = Phase.NIGHT
-        self.nciv: list[int] = [nciv]
-        self.nwolves: list[int] = [nwolf]
+        self.states: list[Village] = [copy.deepcopy(self.village)]
 
     def choose_mayor(self, p_wolf: float=.5):
         for member in self.village.population:
@@ -41,15 +41,16 @@ class Game():
         mayor = random.choices(self.village.population, weights=weights, k=1)[0]
         mayor.is_mayor = True
 
-    def play(self) -> Result:
+    def play(self) -> GameRecord:
+        states: list[Village] = [copy.deepcopy(self.village)]
         while not self.finished:
             if self.phase == Phase.NIGHT:
                 self.play_night()
             else:
                 self.play_day()
-            self.nciv.append(self.village.civilians.size)
-            self.nwolves.append(self.village.wolves.size)
-        return Result(nciv=self.nciv, nwolves=self.nwolves, civ_win=self.winner == Role.CIV)
+            states.append(copy.deepcopy(self.village))
+        #return states
+        return GameRecord(states=states, civ_win=self.winner == Role.CIV)
 
     def play_night(self):
         target = self.village.wolves.get_night_kill(self.village.civilians)
