@@ -19,3 +19,15 @@ def test_civ(mayor):
         assert str(civ) == 'civ_00*'
     else:
         assert str(civ) == 'civ_00'
+
+
+def test_eq():
+    p1 = Player(Role.WOLF, 1)
+    p2 = Player(Role.WOLF, 1)
+    assert p1 == p2
+
+
+def test_not_eq():
+    p1 = Player(Role.WOLF, 1)
+    p2 = Player(Role.WOLF, 2)
+    assert p1 != p2

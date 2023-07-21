@@ -2,10 +2,10 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 
-from wolves_in_silico.abm.game import Result
+from wolves_in_silico.abm.game import GameRecord
 
 
-def plot_game_results(results: list[Result], outdir: Path = Path('./')):
+def plot_game_results(results: list[GameRecord], outdir: Path = Path('./')):
     # get some counts from the results
     nrep = len(results)
     nwin_civ = sum([result.civ_win for result in results])
