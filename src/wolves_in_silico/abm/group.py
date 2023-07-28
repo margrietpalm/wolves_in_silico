@@ -24,6 +24,9 @@ class Group:
     def remove(self, target: Player):
         self.population.remove(target)
 
+    def __contains__(self, item: Player) -> bool:
+        return item in self.population
+
     def __repr__(self) -> str:
         return f"population: {', '.join(str(member) for member in self.population)}"
 

@@ -1,4 +1,12 @@
+from __future__ import annotations
+
 from enum import Enum
+import random
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from wolves_in_silico.abm.group import Group
 
 
 class Role(Enum):
@@ -16,6 +24,16 @@ class Player:
     @property
     def is_wolf(self) -> bool:
         return self.role == Role.WOLF
+
+    def vote(self, group: Group, allow_self: bool = False) -> Player:
+        # create a list of options
+        idx = list(range(group.size))
+        if not allow_self and self in group.population:
+            idx.remove(group.population.index(self))
+        if len(idx) > 0:
+            return group.population[random.choice(idx)]
+        else:
+            raise Exception("Cannot vote with an empty group")
 
     def __repr__(self) -> str:
         bm_suffix = '*' if self.is_mayor else ''
