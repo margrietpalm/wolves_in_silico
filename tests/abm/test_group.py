@@ -34,12 +34,39 @@ class TestGroup:
         g2 = Group(population=[Player(Role.WOLF, 2)])
         assert g1 != g2
 
+    def test_get_mayor(self):
+        n = 3
+        players = [Player(role=Role.CIV, id=i) for i in range(n)]
+        players[0].is_mayor = True
+        group = Group(population=players)
+        assert group.mayor == players[0]
+
+    def test_get_mayor_none(self):
+        n = 3
+        players = [Player(role=Role.CIV, id=i) for i in range(n)]
+        group = Group(population=players)
+        assert group.mayor is None
+
+    def test_get_mayor_too_many(self):
+        n = 3
+        players = [Player(role=Role.CIV, id=i) for i in range(n)]
+        group = Group(population=players)
+        players[0].is_mayor = True
+        players[1].is_mayor = True
+        with pytest.raises(Exception):
+            group.mayor
+
 
 class TestVillage:
     def test_init(self):
         village = Village(nciv=2, nwolf=2)
         assert village.nwolves == 2
         assert village.nciv == 2
+
+    def test_choose_mayor(self):
+        village = Village(nciv=2, nwolf=2)
+        mayor = village.choose_mayor()
+        assert mayor in village.population
 
     def test_remove_wolf(self):
         village = Village(nciv=2, nwolf=2)
