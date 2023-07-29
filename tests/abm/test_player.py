@@ -45,3 +45,12 @@ def test_vote_not_in_group():
     g = Group([Player(role=Role.CIV, id=i) for i in range(2)])
     p = Player(role=Role.CIV, id=2)
     p.vote(g)
+
+
+def test_vote_record():
+    g = Group([Player(role=Role.CIV, id=i) for i in range(3)])
+    p = g.population[0]
+    for i in range(2):
+        v = p.vote(g)
+        assert len(p.votes) == i + 1
+        assert v == p.votes[-1]

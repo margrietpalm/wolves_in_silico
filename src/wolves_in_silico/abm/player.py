@@ -3,7 +3,7 @@ from __future__ import annotations
 from enum import Enum
 import random
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List
 
 if TYPE_CHECKING:
     from wolves_in_silico.abm.group import Group
@@ -20,6 +20,7 @@ class Player:
         self.role = role
         self.id = id
         self.is_mayor: bool = False
+        self.votes: List[Player] = []
 
     @property
     def is_wolf(self) -> bool:
@@ -31,7 +32,9 @@ class Player:
         if not allow_self and self in group.population:
             idx.remove(group.population.index(self))
         if len(idx) > 0:
-            return group.population[random.choice(idx)]
+            v = group.population[random.choice(idx)]
+            self.votes.append(v)
+            return v
         else:
             raise Exception("Cannot vote with an empty group")
 
