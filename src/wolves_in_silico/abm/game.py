@@ -1,11 +1,10 @@
 from typing import Optional
 import copy
-import random
 import numpy as np
 from enum import Enum
 
 from wolves_in_silico.abm.group import Village
-from wolves_in_silico.abm.player import Role
+from wolves_in_silico.abm.player import Role, Player
 
 
 class Phase(Enum):
@@ -36,15 +35,20 @@ class Game():
 
     def __init__(self, nciv: int, nwolf: int):
         self.village: Village = Village(nciv=nciv, nwolf=nwolf)
-        self.choose_mayor()
         self.phase: Phase = Phase.NIGHT
         self.states: list[Village] = [copy.deepcopy(self.village)]
+        self.last_kill: Optional[Player] = None
+        self.choose_mayor()
 
     def choose_mayor(self, p_wolf: float = .5):
+        # ensure there is only one mayor
         for member in self.village.population:
             member.is_mayor = False
-        weights = self.village.nwolves * [p_wolf] + self.village.nciv * [1 - p_wolf]
-        mayor = random.choices(self.village.population, weights=weights, k=1)[0]
+        # if someone gets killed, that player chooses a mayor
+        if self.last_kill is not None:
+            mayor = self.last_kill.vote(self.village)
+        else:
+            mayor = self.village.choose_mayor()
         mayor.is_mayor = True
 
     def play(self) -> GameRecord:
@@ -58,13 +62,13 @@ class Game():
         return GameRecord(states=states, civ_win=self.winner == Role.CIV)
 
     def play_night(self):
-        target = self.village.wolves.get_night_kill(self.village.civilians)
-        self.village.remove(target)
+        self.last_kill = self.village.wolves.get_night_kill(self.village.civilians)
+        self.village.remove(self.last_kill)
         self.finish_phase()
 
     def play_day(self):
-        target = self.village.get_day_kill()
-        self.village.remove(target)
+        self.last_kill = self.village.get_day_kill()
+        self.village.remove(self.last_kill)
         self.finish_phase()
 
     def finish_phase(self):

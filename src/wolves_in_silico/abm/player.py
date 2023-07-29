@@ -42,6 +42,10 @@ class Player:
         bm_suffix = '*' if self.is_mayor else ''
         return f'{self.role.name.lower()}_{self.id:02d}{bm_suffix}'
 
+    def __hash__(self):
+        # Combine the hash values of the name and age attributes
+        return hash((self.role, self.id, self.is_mayor))
+
     def __eq__(self, other) -> bool:
         if not isinstance(other, Player):
             return False
