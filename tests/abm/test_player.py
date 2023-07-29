@@ -54,3 +54,15 @@ def test_vote_record():
         v = p.vote(g)
         assert len(p.votes) == i + 1
         assert v == p.votes[-1]
+
+
+def test_eq():
+    p1 = Player(Role.WOLF, 1)
+    p2 = Player(Role.WOLF, 1)
+    assert p1 == p2
+
+
+def test_not_eq():
+    p1 = Player(Role.WOLF, 1)
+    p2 = Player(Role.WOLF, 2)
+    assert p1 != p2

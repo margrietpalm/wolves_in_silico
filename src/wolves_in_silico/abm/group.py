@@ -30,6 +30,12 @@ class Group:
     def __repr__(self) -> str:
         return f"population: {', '.join(str(member) for member in self.population)}"
 
+    def __eq__(self, other):
+        if not isinstance(other, Group):
+            return False
+        return (self.population == other.population and
+                self.mayor_extra_vote == other.mayor_extra_vote)
+
 
 class Village(Group):
     wolves: Group
