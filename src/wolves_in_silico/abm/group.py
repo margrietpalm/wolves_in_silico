@@ -107,7 +107,6 @@ class Village(Group):
             return self.mayor.votes[-1]
 
     def _count_votes(self, votes: List[Player]) -> List[Player]:
-        # TODO: move to some kind of utilities module
         counts = Counter(votes)
         if self.has_mayor:
             counts[self.mayor.votes[-1]] += self.mayor_extra_vote
