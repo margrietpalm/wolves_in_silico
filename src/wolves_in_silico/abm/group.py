@@ -1,5 +1,9 @@
 import copy
 import random
+
+from collections import Counter
+from typing import Optional, List
+
 from wolves_in_silico.abm.player import Player, Role
 
 
@@ -21,8 +25,21 @@ class Group:
     def has_mayor(self) -> bool:
         return any(member.is_mayor for member in self.population)
 
+    @property
+    def mayor(self) -> Optional[Player]:
+        if not self.has_mayor:
+            return None
+        mayors = [p for p in self.population if p.is_mayor]
+        if len(mayors) == 1:
+            return mayors[0]
+        else:
+            raise Exception(f"{len(mayors)} in the group")
+
     def remove(self, target: Player):
         self.population.remove(target)
+
+    def __contains__(self, item: Player) -> bool:
+        return item in self.population
 
     def __repr__(self) -> str:
         return f"population: {', '.join(str(member) for member in self.population)}"
@@ -71,8 +88,29 @@ class Village(Group):
             self.civilians.remove(member)
         self.population.remove(member)
 
+    def choose_mayor(self) -> Player:
+        while True:
+            votes = [p.vote(self, allow_self=True) for p in self.population]
+            max_votes = self._count_votes(votes)
+            if len(max_votes) == 1:
+                return max_votes[0]
+
     def get_day_kill(self) -> Player:
-        return random.choice(self.population)
+        # collect votes and count
+        max_votes = self._count_votes([p.vote(self) for p in self.population])
+        # if there is a majority, that choice counts
+        if len(max_votes) == 1:
+            return max_votes[0]
+        # if there is no majority, mayor chooses
+        # for now, this is the mayor's original choice
+        else:
+            return self.mayor.votes[-1]
+
+    def _count_votes(self, votes: List[Player]) -> List[Player]:
+        counts = Counter(votes)
+        if self.has_mayor:
+            counts[self.mayor.votes[-1]] += self.mayor_extra_vote
+        return [p for p, c in counts.items() if c == max(counts.values())]
 
     def __repr__(self) -> str:
         return f'wolves: {str(self.wolves)}\ncivilians: {str(self.civilians)}'
